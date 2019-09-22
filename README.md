@@ -6,7 +6,7 @@
 <p>Il seguente codice ha ottenuto, attraverso la piattaforma automatica di valutazione del DEIB (Dipartimento di Elettronica, Informazione, Bioingegneria) una valutazione complessiva di 24/30 (ventiquattro/trentesimi), con un'ottima gestione della memoria RAM ed una buona gestione del tempo di esecuzione.</p>
 
 <h4>Descrizione del progetto</h4>
-<p>Trovate qui il file di descrizione delle specifiche di implementazione</p>
+<p>Trovate qui il file di descrizione delle specifiche di implementazione.</p>
 <a href="http://home.deib.polimi.it/martinen/courses/api/ProvaFinale2019.pdf" target="_blank">Descrizione della Prova Finale</a>
 
 <h4>Licenza</h4>
