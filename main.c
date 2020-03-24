@@ -59,19 +59,6 @@ typedef outbound_rels * or;
 typedef keys * k;
 typedef report_structure * rs;
 
-/*int search_e(e list, char * elem) {			//Check if the entity is already present in e-type list
-    if (list==NULL) return 0;
-    e count = list;
-    if (strcmp(count->name,elem)!=0 && count->next!=NULL) {
-        count = count->next;
-        search_e(count, elem);
-    }
-    if (strcmp(count->name, elem)==0) {
-        return 1;
-    }
-    return 0;
-}*/
-
 int search_letters (char letter, int cases) {
 
     if (cases == 1) {
@@ -133,10 +120,6 @@ e add_ent(char * ID, e list) {
         list = calloc(1, sizeof(entity));
         list->name = malloc((strlen(ID) +1)*sizeof(char));
         strcpy(list->name, ID);
-        /*for (int i=0; i<E; i++) {
-            list->rels[i]=NULL;
-        }*/
-        //list->next = NULL;
         return list;
     }
 
@@ -144,9 +127,6 @@ e add_ent(char * ID, e list) {
         e head = calloc(1, sizeof(entity));
         head->name = malloc((strlen(ID) +1) * sizeof(char) + 1);
         strcpy(head->name, ID);
-        /*for (int i = 0; i < E; i++) {
-            head->rels[i] = NULL;
-        }*/
         head->next = list;
         list = head;
         return list;
@@ -159,9 +139,6 @@ e add_ent(char * ID, e list) {
             e temp = calloc(1, sizeof(entity));
             temp->name = malloc((strlen(ID) +1) * sizeof(char *));
             strcpy(temp->name, ID);
-            /*for (int i = 0; i < E; i++) {
-                temp->rels[i] = NULL;
-            }*/
             temp->next = count->next;
             count->next = temp;
             return list;
@@ -173,8 +150,6 @@ e add_ent(char * ID, e list) {
     count = count->next;
     count->name = malloc((strlen(ID) +1)*sizeof(char *));
     strcpy(count->name, ID);
-    //count->next = NULL;
-    //for (int i=0; i<E; i++) count->rels[i] = NULL;
     return list;
 }
 
@@ -257,9 +232,6 @@ rs check_report_del (rs reporter, char * ID, e list[A][B], int pos) {
                 free(reporter->rels);
                 reporter->rels = NULL;
                 reporter->counter = 0;
-                //reporter = calloc(1, sizeof(report_structure));
-                //reporter->name = malloc(strlen(ID_rel) + 1);
-                //strcpy(reporter->name, ID_rel);
                 for (int i = 0; i < A; i++) {
                     for (int j = 0; j < B; j++) {
                         if (list[i][j] != NULL) {
@@ -433,82 +405,6 @@ e del_single_ent(char *ID, e head, k key[], rs reporter[], e list[A][B]) {
 
     return head;
 }
-
-/*ir del_single_rel(char *ID, ir head, r list, k key) {
-    ir cur, prev;
-
-    while (head != NULL && strcmp(head->o_entity, ID)==0)
-    {
-        // Get reference of head node
-        prev = head;
-
-        // Adjust head node link
-        head = head->next;
-
-        // Delete prev since it contains reference to head node
-        free(prev->o_entity);
-        free(prev);
-        list->counter--;
-        key->counter--;
-        if (key->counter == 0) rep--;
-        return head;
-
-    }
-
-    prev = NULL;
-    cur  = head;
-
-
-    while (cur != NULL)
-    {
-        // Current node contains key
-        if (strcmp(cur->o_entity, ID)==0)
-        {
-            // Adjust links for previous node
-            if (prev != NULL)
-            {
-                prev->next = cur->next;
-            }
-
-            // Delete current node
-            free(cur->o_entity);
-            free(cur);
-            list->counter--;
-
-            cur = prev->next;
-            key->counter--;
-            if (key->counter == 0) rep--;
-            return head;
-
-        }
-        else
-        {
-            prev = cur;
-            cur = cur->next;
-        }
-
-    }
-    return head;
-}*/
-
-/*void del_ent(char * ID, e list[A][B], k key[]) {
-    int i;
-    for (i=0; i<A; i++) {
-        for (int k=0; k<B; k++) {
-            e count = list[i][k];
-            while (count != NULL) {
-                for (int j = 0; j < E; j++) {
-                    if (key[j]!=NULL) {
-                        if (count->rels[key[j]->key] != NULL) {
-                            count->rels[key[j]->key]->i_rel = del_single_rel(ID, count->rels[key[j]->key]->i_rel,count->rels[key[j]->key], key[j]);
-                        }
-                    }
-                }
-                count = count->next;
-            }
-        }
-    }
-}*/
 
 or insert_rel_o (or list, e count) {
     if (list == NULL) {
@@ -834,41 +730,6 @@ void add_rel(char * ID_orig, char * ID_dest, char * ID_rel, e list[A][B], k key[
     }
 }
 
-/*ir delete_relations (ir list, r rels, char * ID_orig, k key) {
-    ir temp = list, prev=NULL;
-    // If head node itself holds the key to be deleted
-    if (temp != NULL && strcmp(temp->o_entity, ID_orig)==0)
-    {
-        list = temp->next;   // Changed head
-        free(temp->o_entity);
-        free(temp);               // free old head
-        rels->counter--;
-        key->counter--;
-        if (key->counter == 0) rep--;
-        return list;
-    }
-
-    // Search for the key to be deleted, keep track of the
-    // previous node as we need to change 'prev->next'
-    while (temp != NULL && strcmp(temp->o_entity, ID_orig)!=0)
-    {
-        prev = temp;
-        temp = temp->next;
-    }
-
-    // If key was not present in linked list
-    if (temp == NULL) return list;
-
-    // Unlink the node from linked list
-    prev->next = temp->next;
-    rels->counter--;
-    free(temp->o_entity);
-    free(temp);  // Free memory
-    key->counter--;
-    if (key->counter == 0) rep--;
-    return list;
-}*/
-
 or clear_out (or list, char * ID) {
     or cur = list, prev = list;
 
@@ -998,17 +859,6 @@ void del_rel (char * ID_orig, char * ID_dest, char * ID_rel, e list[A][B], k key
     }
 }
 
-/*void Sort (k key[]) {
-    for (int i = 0; i < E && key[i]!=NULL; i++) {
-        for (int j = i+1; j < E && key[j]!=NULL; j++)
-            if (strcmp(key[i]->ID_rel, key[j]->ID_rel) > 0) {
-                k temp = key[i];
-                key[i] = key[j];
-                key[j] = temp;
-            }
-    }
-}*/
-
 void Print(ir list) {
     ir count = list;
     while (count->next!=NULL) {
@@ -1027,26 +877,11 @@ void Print(ir list) {
 }
 
 void report (rs structure[], k key[]) {
-    //Sort(key);
-    //rs structure[E];
     if (rep==0) {
         fputs("none\n", stdout);
         return;
     }
     e count;
-    /*for (int i = 0; i < A; i++) {
-        for (int k = 0; k < B; k++) {
-            if (list[i][k] != NULL) {
-                count = list[i][k];
-                while (count != NULL) {
-                    for (int j = 0; j < E && key[j] != NULL; j++) {
-                        structure[j] = BuildReport(structure, count, key[j]->key, j, key[j]->ID_rel);
-                    }
-                    count = count->next;
-                }
-            }
-        }
-    }*/
     int f=0;
     for (int i = 0; i < E; i++) {
         if (key[i] != NULL) {
@@ -1064,20 +899,6 @@ void report (rs structure[], k key[]) {
     }
     fputs("\n", stdout);
 }
-
-/*void present (e list[A]) {			//For development purposes only
-    int n;
-    e count;
-    for(n=0;n<A;n++) {
-        count = list[n];
-        printf("\n\nLista: %d", n);
-        while (count!=NULL) {
-            printf("\n");
-            puts(count->name);
-            count = count->next;
-        }
-    }
-}*/
 
 void Print2(ir list) {
     ir count = list;
@@ -1155,17 +976,6 @@ int main() {
 
             else if (strcmp("delent", token) == 0) {		//If input = delent, open the del_ent function
                 if (scanf(" \"%m[^\"]\"s", &id)==1) {					//Get the entity's ID
-                    /*int letter_id2;
-                    if ((int) id[0] == 45) {
-                        letter_id2 = 0;
-                    } else if ((int) id[0] >= 48 && (int) id[0] <= 57) {
-                        letter_id2 = (int) id[0] - 47;
-                    } else if ((int) id[0] == 95) {
-                        letter_id2 = 11;
-                    } else {
-                        letter_id2 = (int) toupper(id[0]) - 53;
-                    }*/
-
                     letter = id[0];
                     letter_id1 = search_letters(letter, 1);
                     letter = id[1];
@@ -1179,9 +989,6 @@ int main() {
 
             else if (strcmp("addrel", token)==0) {
                 if (scanf(" \"%m[^\"]\"s", &id)==1 && scanf(" \"%m[^\"]\"s", &id_d)==1 && scanf(" \"%m[^\"]\"s", &relation)==1) {
-                    //printf("\nLETTER ID: %d", letter_id);
-                    //printf("\nLETTERA:%c", letter);
-                    //printf("\nRELAZIO:%s", relation);
                     add_rel(id, id_d, relation, list, rel_key, reporter);
                     free(id);
                     free(id_d);
@@ -1207,11 +1014,7 @@ int main() {
                 //printf("\nQuitting...");
                 return 0;
             }			//else continue execution in main
-
-                /*else if (strcmp("present", token)==0) {			//For development purposes only
-                    printf("\n\nEASTER EGG MOTHERFUCKER\n\n");
-                    present(list);
-                }*/
+            
             else if (strcmp("relations", token)==0) {
                 printf("\n --- --- DEBUGGING DEVELOP REPORT --- ---");
                 printf("\n TASK 1: last element value: %d", last_el);
