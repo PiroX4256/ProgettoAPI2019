@@ -7,7 +7,7 @@
 
 <h4>Descrizione del progetto</h4>
 <p>Trovate qui il file di descrizione delle specifiche di implementazione.</p>
-<a href="http://home.deib.polimi.it/martinen/courses/api/ProvaFinale2019.pdf" target="_blank">Descrizione della Prova Finale</a>
+<a href="https://martinenghi.faculty.polimi.it/courses/api/ProvaFinale2019.pdf" target="_blank">Descrizione della Prova Finale</a>
 
 <h4>Licenza</h4>
 <p>Il seguente codice è distribuito secondo gli standard della licenza "Creative Commons 4.0 | Attribuzione - Non commerciale - Condividi allo stesso modo 4.0 Internazionale".</p>
